@@ -1,21 +1,29 @@
-/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/form.css";
-import { useState } from "react";
-function RegisterForm({
-  header,
-  redirect,
-  redirectBtnName,
-  handleFunction,
-  loader
-}) {
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+import { fetchRoles } from "../api/admin";
+
+function UserForm({ header, handleFunction, loader }) {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: null,
+  });
   const [error, setError] = useState({
     name: null,
     email: null,
     password: null,
   });
-  const [showPass, setShowPass] = useState(false);
+  const [roles, setRoles] = useState([]);
+  useEffect(() => {
+    fetchRoles()
+      .then((res) => {
+        if (res.data.result) {
+          setRoles(res.data.result);
+        }
+      })
+      .catch((err) => {});
+  }, []);
 
   const handleUserName = (e) => {
     const name = e.target.value;
@@ -58,6 +66,7 @@ function RegisterForm({
       user.name &&
       user.email &&
       user.password &&
+      user.role &&
       !error.email &&
       !error.name &&
       !error.password
@@ -76,9 +85,6 @@ function RegisterForm({
             method="post"
             onSubmit={handleSubmit}
           >
-            <span className={`text-green-400 text-md font-medium my-2`}>
-              {location.state?.message || ""}
-            </span>
             <input
               type="text"
               placeholder="Name"
@@ -103,7 +109,7 @@ function RegisterForm({
               <span className="text-red-400">{error.email}</span>
             </div>
             <input
-              type={showPass ? "text" : "password"}
+              type="password"
               placeholder="Password"
               name="password"
               required
@@ -114,19 +120,36 @@ function RegisterForm({
             <div>
               <span className="text-red-400">{error.password}</span>
             </div>
-            <div className="self-start ml-2">
-              <input type="checkbox" onChange={() => setShowPass(!showPass)} />
-              <span className="mx-1">show</span>
-            </div>
-            <button type="submit" disabled={loader} className=" bg-[#162031] text-white border-none outline-none py-3 px-0 rounded-3xl w-48 font-bold text-base cursor-pointer  focus:ring focus:ring-gray-300">
-              {loader ? 'loading': 'Register'}
+            <select onChange={(e)=>setUser({...user,role:e.target.value})} className="input ">
+              {roles.length &&
+                roles.map((item) => {
+                  return (
+                    <option key={item._id} value={item._id}>
+                      {item.name}
+                    </option>
+                  );
+                })}
+            </select>
+            {/* <div className="self-start ml-2">
+                <input type="checkbox" onChange={() => setShowPass(!showPass)} />
+                <span className="mx-1">show</span>
+              </div> */}
+            <button
+              type="submit"
+              disabled={loader}
+              className=" mt-3 bg-[#162031] text-white border-none outline-none py-3 px-0 rounded-3xl w-48 font-bold text-base cursor-pointer  focus:ring focus:ring-gray-300"
+            >
+              {loader ? "loading" : "Register"}
             </button>
           </form>
         </div>
         <div className="right">
-          <Link to={redirect}>
-            <button type="button" className=" bg-white border-none outline-none py-3 px-0 rounded-3xl w-48 font-bold text-base cursor-pointer hover:bg-gray-100 focus:ring focus:ring-gray-300">
-              {redirectBtnName}
+          <Link to={"/admin/dashboard"}>
+            <button
+              type="button"
+              className=" bg-white border-none outline-none py-3 px-0 rounded-3xl w-48 font-bold text-base cursor-pointer hover:bg-gray-100 focus:ring focus:ring-gray-300"
+            >
+              Back
             </button>
           </Link>
         </div>
@@ -135,4 +158,4 @@ function RegisterForm({
   );
 }
 
-export default RegisterForm;
+export default UserForm;

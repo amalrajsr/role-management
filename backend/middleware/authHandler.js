@@ -1,5 +1,5 @@
-import {verify} from 'jsonwebtoken'
-const AppError=require('../utils/error')
+import jwt from 'jsonwebtoken'
+import AppError from '../utils/error.js';
 export const authChecker = async (req, res,next) => {
   try {
     const { authorization } = req.headers;
@@ -7,7 +7,7 @@ export const authChecker = async (req, res,next) => {
       throw new AppError(401,'Authorization token required') 
     }
     const token = authorization.split(" ")[1];
-    verify(token, process.env.SECRET, (err) => {
+    jwt.verify(token, process.env.SECRET, (err) => {
       if (err) {
         throw new AppError(400,'Invalid token')
       }

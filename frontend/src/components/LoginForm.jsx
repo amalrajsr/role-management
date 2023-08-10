@@ -85,7 +85,7 @@ function LoginForm({
               <input type="checkbox" onChange={() => setShowPass(!showPass)} />
               <span className="mx-1">show</span>
             </div>
-            <button type="submit" disabled={loader} className="green_btn">
+            <button type="submit" disabled={loader} className=" bg-[#162031] text-white border-none outline-none py-3 px-0 rounded-3xl w-48 font-bold text-base cursor-pointer focus:ring focus:ring-gray-300">
               {loader ? "loading" : "Login"}
             </button>
           </form>

@@ -24,7 +24,6 @@ function Register() {
   };
 
   return (
-    <>
       <RegisterForm
         header={"Register here"}
         handleFunction={handleFunction}
@@ -32,7 +31,6 @@ function Register() {
         redirectBtnName={"Login"}
         redirect={"/admin/login"}
       />
-    </>
   );
 }
 
