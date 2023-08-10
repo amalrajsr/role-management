@@ -1,4 +1,5 @@
 import axios from "../config/axios.js"
 
 
-export const registerAdmin= (user)=>axios.post('/admin/register',user)
+export const registerAdmin= (admin)=>axios.post('/admin/register',admin)
+export const loginAdmin= (admin)=>axios.post('/admin/login',admin)

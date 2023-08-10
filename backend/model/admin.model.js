@@ -1,6 +1,6 @@
 import { Schema, model,Types } from "mongoose";
 
-const userSchema = Schema({
+const adminSchema = Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
@@ -13,11 +13,7 @@ const userSchema = Schema({
   password: {
     type: String,
     required: [true, "password is required"],
-  },
-  role:{
-    type:Types.ObjectId,
-    ref:"role"
   }
 });
 
-export default model("user",userSchema)
+export default model("admin",adminSchema)

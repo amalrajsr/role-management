@@ -1,32 +1,19 @@
-import { Link } from "react-router-dom";
-import "../styles/form.css";
 import { useState } from "react";
-function RegisterForm({
-  header,
+import { Link } from "react-router-dom";
+
+function LoginForm({
   redirect,
   buttonName,
   redirectBtnName,
   handleFunction,
-  loader
+  loader,
 }) {
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState({
-    name: null,
     email: null,
     password: null,
   });
   const [showPass, setShowPass] = useState(false);
-
-  const handleUserName = (e) => {
-    const name = e.target.value;
-    if (!name.trim().length) {
-      setError({ ...error, name: "name cannot be empty" });
-      setUser({ ...user, name: "" });
-    } else {
-      setUser({ ...user, name });
-      setError({ ...error, name: null });
-    }
-  };
 
   const handleEmail = (e) => {
     const email = e.target.value;
@@ -51,26 +38,17 @@ function RegisterForm({
       });
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      user.name &&
-      user.email &&
-      user.password &&
-      !error.email &&
-      !error.name &&
-      !error.password
-    ) {
+    if (user.email && user.password && !error.email && !error.password) {
       handleFunction(user);
     }
   };
-
   return (
     <div className="login_container">
       <div className="login_form_container">
         <div className="left">
-          <h1 className="text-2xl mb-5">{header}</h1>
+          <h1 className="text-2xl mb-5">Login here</h1>
           <form
             className="form_container"
             method="post"
@@ -79,17 +57,6 @@ function RegisterForm({
             <span className={`text-green-400 text-md font-medium my-2`}>
               {location.state?.message || ""}
             </span>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              name="name"
-              className="input my-2"
-              value={user.name}
-              onChange={(e) => handleUserName(e)}
-            />
-            <div>
-              <span className="text-red-400">{error?.name}</span>
-            </div>
             <input
               type="email"
               placeholder="Email"
@@ -119,20 +86,16 @@ function RegisterForm({
               <span className="mx-1">show</span>
             </div>
             <button type="submit" disabled={loader} className="green_btn">
-              {loader ? 'loading': 'Register'}
+              {loader ? "loading" : "Login"}
             </button>
           </form>
         </div>
         <div className="right">
-          <Link to={redirect}>
-            <button type="button" className="white_btn">
-              {redirectBtnName}
-            </button>
-          </Link>
+        
         </div>
       </div>
     </div>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;
