@@ -88,7 +88,7 @@ function RegisterForm({
               onChange={(e) => handleUserName(e)}
             />
             <div>
-              <span className="text-red-400">{error?.name}</span>
+              <span className="text-red-400 text-start">{error?.name}</span>
             </div>
             <input
               type="email"
@@ -100,7 +100,7 @@ function RegisterForm({
               onChange={(e) => handleEmail(e)}
             />
             <div>
-              <span className="text-red-400">{error.email}</span>
+              <span className="text-red-400 text-start">{error.email}</span>
             </div>
             <input
               type={showPass ? "text" : "password"}
@@ -112,7 +112,7 @@ function RegisterForm({
               onChange={(e) => handlePassWord(e)}
             />
             <div>
-              <span className="text-red-400">{error.password}</span>
+              <span className="text-red-400 text-start">{error.password}</span>
             </div>
             <div className="self-start ml-2">
               <input type="checkbox" onChange={() => setShowPass(!showPass)} />

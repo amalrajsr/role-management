@@ -26,9 +26,9 @@ export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) throw new AppError(400, "invalid request");
   const admin = await adminModel.findOne({ email });
-  if (!admin) throw new AppError(400, "invalid credentials");
+  if (!admin) throw new AppError(400, "Invalid credentials");
   const match = await bcrypt.compare(password, admin.password);
-  if (!match) throw new AppError(400, "invalid credentials");
+  if (!match) throw new AppError(400, "Invalid credentials");
   const token = createToken(admin._id);
   res.json({
     success: true,

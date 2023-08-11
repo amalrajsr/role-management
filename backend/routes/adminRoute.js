@@ -1,5 +1,5 @@
 import express from "express";
-import { addRole, addUser, fetchRole, fetchUsers, login, register } from "../controller/admin.controller.js";
+import { addRole, addUser, fetchRole, fetchUsers, login, register } from "../controller/adminController.js";
 import { authChecker } from "../middleware/authHandler.js";
 
 const router= express()

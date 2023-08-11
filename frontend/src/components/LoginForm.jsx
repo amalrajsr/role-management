@@ -51,9 +51,6 @@ function LoginForm({
             method="post"
             onSubmit={handleSubmit}
           >
-            <span className={`text-green-400 text-md font-medium my-2`}>
-              {location.state?.message || ""}
-            </span>
             <input
               type="email"
               placeholder="Email"
@@ -64,7 +61,7 @@ function LoginForm({
               onChange={(e) => handleEmail(e)}
             />
             <div>
-              <span className="text-red-400">{error.email}</span>
+              <span className="text-red-400 text-start">{error.email}</span>
             </div>
             <input
               type={showPass ? "text" : "password"}
@@ -76,7 +73,7 @@ function LoginForm({
               onChange={(e) => handlePassWord(e)}
             />
             <div>
-              <span className="text-red-400">{error.password}</span>
+              <span className="text-red-400 text-start">{error.password}</span>
             </div>
             <div className="self-start ml-2">
               <input type="checkbox" onChange={() => setShowPass(!showPass)} />

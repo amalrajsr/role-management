@@ -7,10 +7,11 @@ export const authChecker = async (req, res,next) => {
       throw new AppError(401,'Authorization token required') 
     }
     const token = authorization.split(" ")[1];
-    jwt.verify(token, process.env.SECRET, (err) => {
+    jwt.verify(token, process.env.SECRET, (err,decodedToken) => {
       if (err) {
         throw new AppError(400,'Invalid token')
       }
+      req.id=decodedToken.id
       next();
     });
   } catch (error) {
