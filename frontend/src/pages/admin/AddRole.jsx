@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { addRole } from "../../api/admin";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function AddRole() {
+  const token = localStorage.getItem('admin')
   const [role, setRole] = useState({
     name: "",
     permission: { add: false, edit: false, delete: false },
@@ -35,7 +36,7 @@ function AddRole() {
         });
     }
   };
-  return (
+  return token? (
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
@@ -112,7 +113,7 @@ function AddRole() {
         </button>
       </div>
     </form>
-  );
+  ) : <Navigate to={'/admin/login'}/>
 }
 
 export default AddRole;

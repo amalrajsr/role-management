@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 function LoginForm({
-  redirect,
-  buttonName,
-  redirectBtnName,
   handleFunction,
   loader,
+  heading
 }) {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState({
@@ -48,7 +45,7 @@ function LoginForm({
     <div className="login_container">
       <div className="login_form_container">
         <div className="left">
-          <h1 className="text-2xl mb-5">Login here</h1>
+          <h1 className="text-2xl mb-5">{heading}</h1>
           <form
             className="form_container"
             method="post"

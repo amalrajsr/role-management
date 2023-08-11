@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { addUser } from "../../api/admin";
+import { addUser } from "../../api/user";
 import { toast } from "react-hot-toast";
 import UserForm from "../../components/UserForm";
 
 function AddUser() {
-  const token = localStorage.getItem('admin')
+  const token = localStorage.getItem('user')
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const handleFunction = (user) => {
@@ -13,7 +13,7 @@ function AddUser() {
     addUser(user)
       .then((res) => {
         if (res.data.success) {
-          navigate("/admin/dashboard");
+          navigate("/dashboard");
           toast.success('successfully added')
         }
       })
@@ -30,9 +30,9 @@ function AddUser() {
       header={"Add User"}
       handleFunction={handleFunction}
       loader={loader}
-      btnName={'Add User'}
-      redirect={"/admin/dashboard"}
-    /> : <Navigate to={'/admin/login'}/>
+      btnName={'Add user'}
+      redirect={"/dashboard"}
+    /> : <Navigate to={'/login'}/>
   );
 }
 

@@ -2,8 +2,9 @@ import { useState } from "react";
 import RegisterForm from "../../components/RegisterForm";
 import { registerAdmin } from "../../api/admin";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 function Register() {
+  const token = localStorage.getItem('admin')
   const [loader, setLoader] = useState(false);
   const navigate=useNavigate()
   const handleFunction = (admin) => {
@@ -24,13 +25,14 @@ function Register() {
   };
 
   return (
+    !token ?
       <RegisterForm
         header={"Register here"}
         handleFunction={handleFunction}
         loader={loader}
         redirectBtnName={"Login"}
         redirect={"/admin/login"}
-      />
+      />: <Navigate to={'/admin/dashboard'}/>
   );
 }
 
